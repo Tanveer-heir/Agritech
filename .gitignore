@@ -1,0 +1,69 @@
+# Environment & secrets — NEVER commit these
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+*.egg-info/
+dist/
+build/
+.eggs/
+*.egg
+pip-wheel-metadata/
+.pip/
+
+# Testing & coverage
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+coverage.xml
+*.cover
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# Models & large files — use Git LFS or HuggingFace Hub instead
+*.bin
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+models/
+
+# Data — raw farmer images must never be committed (privacy)
+data/raw/
+data/uploads/
+*.jpg
+*.jpeg
+*.png
+*.gif
+!docs/*.png
+!docs/*.gif
+
+# Logs
+*.log
+logs/
+
+# Railway / Docker
+.railway/

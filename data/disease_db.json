@@ -1,0 +1,59 @@
+{
+  "_comment": "Disease knowledge base — Multilingual AI Crop Doctor",
+  "_format": {
+    "crop_name": {
+      "disease_name": {
+        "symptoms": "Visible symptoms description",
+        "organic_treatment": "Organic remedy",
+        "chemical_treatment": "Pesticide generic name + dosage",
+        "yield_impact": "Estimated % yield loss if untreated",
+        "source": "ICAR Bulletin or reference",
+        "severity_markers": {
+          "mild": "Early-stage description",
+          "moderate": "Mid-stage description",
+          "severe": "Late-stage description"
+        }
+      }
+    }
+  },
+  "rice": {
+    "brown_leaf_spot": {
+      "symptoms": "Circular to oval brown spots with yellow halos on leaves; spots may coalesce at severe stage",
+      "organic_treatment": "Spray neem oil (3%) + garlic extract solution. Remove and destroy heavily infected leaves.",
+      "chemical_treatment": "Mancozeb 75% WP @ 2.5 g/L water. Spray at 10-day intervals.",
+      "yield_impact": "10–30% if untreated at moderate stage",
+      "source": "ICAR Rice Knowledge Management Portal",
+      "severity_markers": {
+        "mild": "Scattered small spots on <10% of leaf area",
+        "moderate": "Spots on 10–30% of leaf area, some coalescing",
+        "severe": "Spots covering >30% of leaves, widespread chlorosis"
+      }
+    },
+    "blast": {
+      "symptoms": "Diamond-shaped grey-green lesions with brown borders on leaves and neck",
+      "organic_treatment": "Spray Pseudomonas fluorescens (talc formulation) @ 5 g/L water. Maintain field drainage.",
+      "chemical_treatment": "Tricyclazole 75% WP @ 0.6 g/L water or Isoprothiolane 40% EC @ 1.5 ml/L.",
+      "yield_impact": "Up to 50% if neck blast occurs at heading stage",
+      "source": "ICAR NRRI Bulletin 2022",
+      "severity_markers": {
+        "mild": "Small lesions on lower leaves only",
+        "moderate": "Lesions on multiple leaf layers, some neck infection",
+        "severe": "Neck blast, empty panicles, widespread damage"
+      }
+    }
+  },
+  "wheat": {
+    "yellow_rust": {
+      "symptoms": "Bright yellow-orange pustules in stripes along leaf veins; leaves feel powdery",
+      "organic_treatment": "Remove infected plant debris. Avoid excess nitrogen fertiliser. Plant resistant varieties next season.",
+      "chemical_treatment": "Propiconazole 25% EC @ 0.1% solution. Spray at first sign of symptoms.",
+      "yield_impact": "10–70% depending on growth stage at infection",
+      "source": "ICAR-IIWBR Bulletin 2023",
+      "severity_markers": {
+        "mild": "Yellow pustule stripes on <5% of leaf area",
+        "moderate": "Pustule stripes on 5–30% of leaves",
+        "severe": "Widespread striping, stem infection visible"
+      }
+    }
+  }
+}

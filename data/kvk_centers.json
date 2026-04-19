@@ -1,0 +1,34 @@
+{
+  "_comment": "KVK (Krishi Vigyan Kendra) directory — sample entries. Full data to be added.",
+  "_source": "ICAR KVK Portal — icar.org.in/kvk",
+  "by_state": {
+    "maharashtra": {
+      "helpline": "1800-180-1551",
+      "districts": {
+        "amravati": {
+          "name": "KVK Amravati (Dr. PDKV)",
+          "phone": "0721-2662165",
+          "address": "Dr. Panjabrao Deshmukh Krishi Vidyapeeth Campus, Amravati 444602",
+          "pin_prefixes": ["444"]
+        },
+        "pune": {
+          "name": "KVK Pune (MPKV)",
+          "phone": "020-25536156",
+          "address": "Mahatma Phule Krishi Vidyapeeth, Pune 411005",
+          "pin_prefixes": ["411", "412"]
+        }
+      }
+    },
+    "tamil_nadu": {
+      "helpline": "1800-425-1551",
+      "districts": {
+        "thanjavur": {
+          "name": "KVK Thanjavur (TNAU)",
+          "phone": "04362-264421",
+          "address": "Tamil Nadu Agricultural University, Thanjavur 613005",
+          "pin_prefixes": ["613"]
+        }
+      }
+    }
+  }
+}
