@@ -1,14 +1,14 @@
 # === Core AI / LLM ===
-anthropic>=0.25.0
+google-generativeai>=0.8.0
 langchain>=0.2.0
-langchain-anthropic>=0.1.0
+langchain-google-genai>=2.0.0
 langgraph>=0.1.0
 
 # === Translation ===
 # IndicTrans2 via IndicTransToolkit (quantized, lighter than raw model)
 # Install separately if using local model:
 #   pip install git+https://github.com/AI4Bharat/IndicTransToolkit.git
-# For MVP, Claude API handles translation (USE_CLAUDE_FOR_TRANSLATION=true)
+# For MVP, Claude API handles translation (USE_GEMINI_FOR_TRANSLATION=true)
 langdetect>=1.0.9
 
 # === Backend ===

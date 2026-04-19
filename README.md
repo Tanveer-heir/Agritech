@@ -11,7 +11,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.110%2B-009688?logo=fastapi)](https://fastapi.tiangolo.com)
-[![Powered by Claude](https://img.shields.io/badge/Powered%20by-Claude%20Vision-blueviolet)](https://anthropic.com)
+[![Powered by Gemini](https://img.shields.io/badge/Powered%20by-Gemini%20Vision-4285F4)](https://ai.google.dev)
 
 <!-- Uncomment after deploying to Streamlit -->
 <!-- [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](YOUR_STREAMLIT_URL) -->
@@ -50,7 +50,7 @@ Farmer (WhatsApp / SMS)
         │                                            │
         ▼                                            ▼
   Vision Agent                               Location Agent
-  (Claude Vision API)                        (KVK PIN lookup)
+  (Gemini Vision API)                        (KVK PIN lookup)
         │
         ▼
   Diagnosis Agent
@@ -72,7 +72,7 @@ Farmer (WhatsApp / SMS)
 
 | Layer | Technology |
 |---|---|
-| **Vision AI** | Claude Vision API (Anthropic) |
+| **Vision AI** | Gemini Vision API (Google) |
 | **Agent Orchestration** | LangGraph |
 | **Translation** | IndicTrans2 (AI4Bharat) — 22 Indian languages |
 | **Backend** | FastAPI + Uvicorn |
@@ -92,10 +92,10 @@ Farmer (WhatsApp / SMS)
 | Potato | Early Blight, Late Blight, Healthy | PlantVillage |
 | Maize | Common Rust, Cercospora Leaf Spot, Northern Blight, Healthy | PlantVillage |
 | Soybean | Frogeye Leaf Spot, Healthy | PlantVillage |
-| Cotton | Alternaria Leaf Spot, Bacterial Blight | Claude Vision (zero-shot) |
-| Sugarcane | Red Rot, Smut, Healthy | Claude Vision (zero-shot) |
-| Chilli | Anthracnose, Powdery Mildew, Healthy | Claude Vision (zero-shot) |
-| Banana | Panama Disease, Sigatoka, Healthy | Claude Vision (zero-shot) |
+| Cotton | Alternaria Leaf Spot, Bacterial Blight | Gemini Vision (zero-shot) |
+| Sugarcane | Red Rot, Smut, Healthy | Gemini Vision (zero-shot) |
+| Chilli | Anthracnose, Powdery Mildew, Healthy | Gemini Vision (zero-shot) |
+| Banana | Panama Disease, Sigatoka, Healthy | Gemini Vision (zero-shot) |
 
 ---
 
@@ -104,7 +104,7 @@ Farmer (WhatsApp / SMS)
 ### Prerequisites
 - Python 3.10+
 - A [Twilio account](https://twilio.com) (free trial works)
-- An [Anthropic API key](https://console.anthropic.com)
+- An [Anthropic API key](https://console.ai.google.dev)
 
 ### 1. Clone & Install
 
@@ -163,7 +163,7 @@ To add a new language, see [CONTRIBUTING.md](CONTRIBUTING.md).
 ```
 multilingual-crop-doctor/
 ├── agents/
-│   ├── vision_agent.py      # Claude Vision API → disease classification
+│   ├── vision_agent.py      # Gemini Vision API → disease classification
 │   ├── diagnosis_agent.py   # Knowledge base lookup + treatment logic
 │   ├── language_agent.py    # IndicTrans2 translation + lang detection
 │   └── location_agent.py    # KVK lookup by PIN code

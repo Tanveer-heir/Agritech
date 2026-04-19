@@ -37,7 +37,7 @@ Farmer (WhatsApp / SMS)
 
 | Decision | Choice | Reason |
 |---|---|---|
-| Vision model | Claude Vision API | Zero-shot, no training, handles Indian crops not in PlantVillage |
+| Vision model | Gemini Vision API | Zero-shot, no training, handles Indian crops not in PlantVillage |
 | Translation | IndicTrans2 / Claude fallback | Open source, supports all 22 Indian languages |
 | Agent framework | LangGraph | Native support for multi-agent pipelines with state |
 | Messaging | Twilio | Proven at scale; free sandbox for development |

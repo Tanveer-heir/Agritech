@@ -56,17 +56,17 @@ def translate_to(text: str, target_language: str) -> str:
     if target_language == "en":
         return text
 
-    if os.getenv("USE_CLAUDE_FOR_TRANSLATION", "true").lower() == "true":
-        return _translate_via_claude(text, target_language)
+    if os.getenv("USE_GEMINI_FOR_TRANSLATION", "true").lower() == "true":
+        return _translate_via_gemini(text, target_language)
     else:
         return _translate_via_indictrans(text, target_language)
 
 
-def _translate_via_claude(text: str, target_language: str) -> str:
-    """Translate using Claude API — no local model required."""
-    import anthropic
-    # TODO: Implement Claude translation with a language-specific system prompt
-    raise NotImplementedError("_translate_via_claude() not yet implemented")
+def _translate_via_gemini(text: str, target_language: str) -> str:
+    """Translate using Gemini API — no local model required."""
+    import google.generativeai as genai
+    # TODO: Implement Gemini translation with a language-specific system prompt
+    raise NotImplementedError("_translate_via_gemini() not yet implemented")
 
 
 def _translate_via_indictrans(text: str, target_language: str) -> str:

@@ -1,7 +1,7 @@
 """
 Vision Agent
 ============
-Sends a crop image to Claude Vision API and returns a structured
+Sends a crop image to Gemini Vision API and returns a structured
 disease classification result.
 
 Returns:
@@ -14,7 +14,7 @@ Returns:
     }
 """
 
-import anthropic
+import google.generativeai as genai
 import base64
 import os
 from pathlib import Path
@@ -45,7 +45,7 @@ Respond ONLY in this exact JSON format:
 
 def classify_disease(image_bytes: bytes, image_media_type: str = "image/jpeg") -> dict:
     """
-    Classify the disease in a crop image using Claude Vision.
+    Classify the disease in a crop image using Gemini Vision.
 
     Args:
         image_bytes: Raw image bytes (JPEG or PNG)
@@ -54,11 +54,12 @@ def classify_disease(image_bytes: bytes, image_media_type: str = "image/jpeg") -
     Returns:
         dict with crop, disease, severity, confidence, top_candidates
     """
-    client = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
+    genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+    client = genai.GenerativeModel(os.getenv("GEMINI_MODEL", "gemini-2.5-pro"))
 
     image_data = base64.standard_b64encode(image_bytes).decode("utf-8")
 
-    # TODO: Implement Claude Vision API call
+    # TODO: Implement Gemini Vision API call
     # TODO: Parse JSON response
     # TODO: Return structured result
     raise NotImplementedError("vision_agent.classify_disease() not yet implemented")

@@ -64,7 +64,7 @@ cat > README.md << 'READMEEOF'
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.110%2B-009688?logo=fastapi)](https://fastapi.tiangolo.com)
-[![Powered by Claude](https://img.shields.io/badge/Powered%20by-Claude%20Vision-blueviolet)](https://anthropic.com)
+[![Powered by Gemini](https://img.shields.io/badge/Powered%20by-Gemini%20Vision-4285F4)](https://ai.google.dev)
 
 <!-- Uncomment after deploying to Streamlit -->
 <!-- [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](YOUR_STREAMLIT_URL) -->
@@ -103,7 +103,7 @@ Farmer (WhatsApp / SMS)
         │                                            │
         ▼                                            ▼
   Vision Agent                               Location Agent
-  (Claude Vision API)                        (KVK PIN lookup)
+  (Gemini Vision API)                        (KVK PIN lookup)
         │
         ▼
   Diagnosis Agent
@@ -125,7 +125,7 @@ Farmer (WhatsApp / SMS)
 
 | Layer | Technology |
 |---|---|
-| **Vision AI** | Claude Vision API (Anthropic) |
+| **Vision AI** | Gemini Vision API (Google) |
 | **Agent Orchestration** | LangGraph |
 | **Translation** | IndicTrans2 (AI4Bharat) — 22 Indian languages |
 | **Backend** | FastAPI + Uvicorn |
@@ -145,10 +145,10 @@ Farmer (WhatsApp / SMS)
 | Potato | Early Blight, Late Blight, Healthy | PlantVillage |
 | Maize | Common Rust, Cercospora Leaf Spot, Northern Blight, Healthy | PlantVillage |
 | Soybean | Frogeye Leaf Spot, Healthy | PlantVillage |
-| Cotton | Alternaria Leaf Spot, Bacterial Blight | Claude Vision (zero-shot) |
-| Sugarcane | Red Rot, Smut, Healthy | Claude Vision (zero-shot) |
-| Chilli | Anthracnose, Powdery Mildew, Healthy | Claude Vision (zero-shot) |
-| Banana | Panama Disease, Sigatoka, Healthy | Claude Vision (zero-shot) |
+| Cotton | Alternaria Leaf Spot, Bacterial Blight | Gemini Vision (zero-shot) |
+| Sugarcane | Red Rot, Smut, Healthy | Gemini Vision (zero-shot) |
+| Chilli | Anthracnose, Powdery Mildew, Healthy | Gemini Vision (zero-shot) |
+| Banana | Panama Disease, Sigatoka, Healthy | Gemini Vision (zero-shot) |
 
 ---
 
@@ -157,7 +157,7 @@ Farmer (WhatsApp / SMS)
 ### Prerequisites
 - Python 3.10+
 - A [Twilio account](https://twilio.com) (free trial works)
-- An [Anthropic API key](https://console.anthropic.com)
+- An [Anthropic API key](https://console.ai.google.dev)
 
 ### 1. Clone & Install
 
@@ -216,7 +216,7 @@ To add a new language, see [CONTRIBUTING.md](CONTRIBUTING.md).
 ```
 multilingual-crop-doctor/
 ├── agents/
-│   ├── vision_agent.py      # Claude Vision API → disease classification
+│   ├── vision_agent.py      # Gemini Vision API → disease classification
 │   ├── diagnosis_agent.py   # Knowledge base lookup + treatment logic
 │   ├── language_agent.py    # IndicTrans2 translation + lang detection
 │   └── location_agent.py    # KVK lookup by PIN code
@@ -435,10 +435,10 @@ cat > .env.example << 'ENVEOF'
 # NEVER commit .env to git.
 # =============================================================================
 
-# --- Anthropic (Claude Vision API) -------------------------------------------
-# Get your key at: https://console.anthropic.com
-# IMPORTANT: Set a hard spend limit of $10 in the Anthropic console during dev
-ANTHROPIC_API_KEY=sk-ant-...
+# --- Anthropic (Gemini Vision API) -------------------------------------------
+# Get your key at: https://console.ai.google.dev
+# IMPORTANT: Set a daily quota limit in Google AI Studio during dev
+GEMINI_API_KEY=AIza...
 
 # --- Twilio (WhatsApp + SMS) --------------------------------------------------
 # Get these from: https://console.twilio.com
@@ -461,10 +461,10 @@ MAX_IMAGE_SIZE_BYTES=10485760
 # Default language if detection fails (ISO 639-1 code)
 DEFAULT_LANGUAGE=hi
 
-# Claude model to use for vision + diagnosis
-CLAUDE_MODEL=claude-opus-4-6
+# Gemini model to use for vision + diagnosis
+GEMINI_MODEL=gemini-2.5-pro
 
-# Hard cost cap — requests will be rejected above this cumulative spend
+# Hard cost cap — requests will be rejected above this cumulative spend (Gemini)
 API_COST_CAP_USD=10.00
 
 # --- IndicTrans2 Model --------------------------------------------------------
@@ -473,7 +473,7 @@ API_COST_CAP_USD=10.00
 INDICTRANS_MODEL_PATH=
 
 # Use Claude API for translation instead of local IndicTrans2 (recommended for MVP)
-USE_CLAUDE_FOR_TRANSLATION=true
+USE_GEMINI_FOR_TRANSLATION=true
 
 # --- KVK Locator --------------------------------------------------------------
 # Path to KVK centres JSON (included in repo at data/kvk_centers.json)
@@ -603,16 +603,16 @@ info "Writing requirements.txt..."
 
 cat > requirements.txt << 'REQEOF'
 # === Core AI / LLM ===
-anthropic>=0.25.0
+google-generativeai>=0.8.0
 langchain>=0.2.0
-langchain-anthropic>=0.1.0
+langchain-google-genai>=2.0.0
 langgraph>=0.1.0
 
 # === Translation ===
 # IndicTrans2 via IndicTransToolkit (quantized, lighter than raw model)
 # Install separately if using local model:
 #   pip install git+https://github.com/AI4Bharat/IndicTransToolkit.git
-# For MVP, Claude API handles translation (USE_CLAUDE_FOR_TRANSLATION=true)
+# For MVP, Claude API handles translation (USE_GEMINI_FOR_TRANSLATION=true)
 langdetect>=1.0.9
 
 # === Backend ===
@@ -655,7 +655,7 @@ Crop Doctor Agents
 LangGraph-based multi-agent pipeline for crop disease diagnosis.
 
 Agents:
-  vision_agent     → Claude Vision API: image → disease classification
+  vision_agent     → Gemini Vision API: image → disease classification
   diagnosis_agent  → Knowledge base: disease → treatment recommendations
   language_agent   → IndicTrans2: English response → farmer's language
   location_agent   → KVK directory: PIN code → nearest KVK contact
@@ -667,7 +667,7 @@ cat > agents/vision_agent.py << 'EOF'
 """
 Vision Agent
 ============
-Sends a crop image to Claude Vision API and returns a structured
+Sends a crop image to Gemini Vision API and returns a structured
 disease classification result.
 
 Returns:
@@ -680,7 +680,7 @@ Returns:
     }
 """
 
-import anthropic
+import google.generativeai as genai
 import base64
 import os
 from pathlib import Path
@@ -711,7 +711,7 @@ Respond ONLY in this exact JSON format:
 
 def classify_disease(image_bytes: bytes, image_media_type: str = "image/jpeg") -> dict:
     """
-    Classify the disease in a crop image using Claude Vision.
+    Classify the disease in a crop image using Gemini Vision.
 
     Args:
         image_bytes: Raw image bytes (JPEG or PNG)
@@ -720,11 +720,12 @@ def classify_disease(image_bytes: bytes, image_media_type: str = "image/jpeg") -
     Returns:
         dict with crop, disease, severity, confidence, top_candidates
     """
-    client = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
+    genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+    client = genai.GenerativeModel(os.getenv("GEMINI_MODEL", "gemini-2.5-pro"))
 
     image_data = base64.standard_b64encode(image_bytes).decode("utf-8")
 
-    # TODO: Implement Claude Vision API call
+    # TODO: Implement Gemini Vision API call
     # TODO: Parse JSON response
     # TODO: Return structured result
     raise NotImplementedError("vision_agent.classify_disease() not yet implemented")
@@ -833,17 +834,17 @@ def translate_to(text: str, target_language: str) -> str:
     if target_language == "en":
         return text
 
-    if os.getenv("USE_CLAUDE_FOR_TRANSLATION", "true").lower() == "true":
-        return _translate_via_claude(text, target_language)
+    if os.getenv("USE_GEMINI_FOR_TRANSLATION", "true").lower() == "true":
+        return _translate_via_gemini(text, target_language)
     else:
         return _translate_via_indictrans(text, target_language)
 
 
-def _translate_via_claude(text: str, target_language: str) -> str:
-    """Translate using Claude API — no local model required."""
-    import anthropic
-    # TODO: Implement Claude translation with a language-specific system prompt
-    raise NotImplementedError("_translate_via_claude() not yet implemented")
+def _translate_via_gemini(text: str, target_language: str) -> str:
+    """Translate using Gemini API — no local model required."""
+    import google.generativeai as genai
+    # TODO: Implement Gemini translation with a language-specific system prompt
+    raise NotImplementedError("_translate_via_gemini() not yet implemented")
 
 
 def _translate_via_indictrans(text: str, target_language: str) -> str:
@@ -1219,7 +1220,7 @@ Farmer (WhatsApp / SMS)
 
 | Decision | Choice | Reason |
 |---|---|---|
-| Vision model | Claude Vision API | Zero-shot, no training, handles Indian crops not in PlantVillage |
+| Vision model | Gemini Vision API | Zero-shot, no training, handles Indian crops not in PlantVillage |
 | Translation | IndicTrans2 / Claude fallback | Open source, supports all 22 Indian languages |
 | Agent framework | LangGraph | Native support for multi-agent pipelines with state |
 | Messaging | Twilio | Proven at scale; free sandbox for development |
@@ -1265,8 +1266,8 @@ def test_low_confidence_below_threshold():
 
 
 # TODO: Add integration tests once vision_agent.py is implemented
-# @patch("anthropic.Anthropic")
-# def test_classify_disease_calls_claude(mock_client):
+# @patch("google.generativeai.GenerativeModel")
+# def test_classify_disease_calls_gemini(mock_client):
 #     ...
 EOF
 
@@ -1382,13 +1383,13 @@ echo ""
 echo "  3. Edit LICENSE — replace [YOUR NAME] with your actual name"
 echo ""
 echo "  4. Add GitHub Topics (go to repo → About → gear icon):"
-echo "     langchain langgraph anthropic agriculture plant-disease-detection"
+echo "     langchain langgraph google-gemini agriculture plant-disease-detection"
 echo "     multilingual whatsapp-bot agentic-ai india sustainability"
 echo "     fastapi streamlit ai-for-good smallholder-farmers"
 echo ""
 echo "  5. Set up environment:"
 echo "     cp .env.example .env"
-echo "     # Fill in ANTHROPIC_API_KEY and TWILIO_* vars"
+echo "     # Fill in GEMINI_API_KEY and TWILIO_* vars"
 echo ""
 echo "  6. Install dependencies:"
 echo "     python -m venv venv && source venv/bin/activate"

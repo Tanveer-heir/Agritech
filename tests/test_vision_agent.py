@@ -32,6 +32,6 @@ def test_low_confidence_below_threshold():
 
 
 # TODO: Add integration tests once vision_agent.py is implemented
-# @patch("anthropic.Anthropic")
-# def test_classify_disease_calls_claude(mock_client):
+# @patch("google.generativeai.GenerativeModel")
+# def test_classify_disease_calls_gemini(mock_client):
 #     ...
