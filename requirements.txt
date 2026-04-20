@@ -1,36 +1,61 @@
-# === Core AI / LLM ===
-google-generativeai>=0.8.0
-langchain>=0.2.0
-langchain-google-genai>=2.0.0
-langgraph>=0.1.0
+# ── Crop Doctor — requirements.txt ─────────────────────────────────────────
+# Install order matters for CUDA:
+#   1. Install PyTorch first (with CUDA 12.1 — matches A4000 driver)
+#   2. Then install everything else
 
-# === Translation ===
-# IndicTrans2 via IndicTransToolkit (quantized, lighter than raw model)
-# Install separately if using local model:
-#   pip install git+https://github.com/AI4Bharat/IndicTransToolkit.git
-# For MVP, Claude API handles translation (USE_GEMINI_FOR_TRANSLATION=true)
-langdetect>=1.0.9
+# ── Step 1: PyTorch (run this manually FIRST) ───────────────────────────────
+# pip install torch torchvision --index-url https://download.pytorch.org/whl/cu121
+#
+# Check CUDA version on your A4000:  nvidia-smi
+# If driver shows CUDA 11.8:  use cu118 instead of cu121
 
-# === Backend ===
+# ── Step 2: All other dependencies ──────────────────────────────────────────
+# (put in requirements.txt and run: pip install -r requirements.txt)
+
+# Core ML
+timm>=0.9.12
+scikit-learn>=1.4.0
+numpy>=1.26.0
+
+# Image processing
+Pillow>=10.2.0
+
+# Training utilities
+tqdm>=4.66.0
+matplotlib>=3.8.0
+seaborn>=0.13.0
+
+# Gemini Vision (fallback)
+google-generativeai>=0.5.0
+
+# FastAPI backend
 fastapi>=0.110.0
 uvicorn[standard]>=0.29.0
-python-multipart>=0.0.9    # For image file uploads
-httpx>=0.27.0              # Async HTTP client
-pydantic>=2.0.0
-pydantic-settings>=2.0.0  # For .env loading
+python-multipart>=0.0.9     # for file upload in FastAPI
+pydantic>=2.6.0
 
-# === Twilio (WhatsApp + SMS) ===
-twilio>=9.0.0
+# Twilio (WhatsApp + SMS)
+twilio>=8.13.0
 
-# === Frontend ===
-streamlit>=1.35.0
-Pillow>=10.3.0             # Image handling
+# LangChain + LangGraph (agents)
+langchain>=0.2.0
+langgraph>=0.0.55
+langchain-google-genai>=1.0.0  # LangChain wrapper for Gemini
 
-# === Testing ===
-pytest>=8.2.0
-pytest-asyncio>=0.23.0
-pytest-mock>=3.14.0
+# Language detection + translation
+langdetect>=1.0.9
 
-# === Dev / Code Quality ===
-black>=24.0.0
-python-dotenv>=1.0.0
+# Environment variables
+python-dotenv>=1.0.1
+
+# HTTP client (for downloading images from Twilio URLs)
+httpx>=0.27.0
+
+# Dataset download
+kaggle>=1.6.12
+
+# Database (session memory)
+sqlalchemy>=2.0.0
+
+# Vector store (disease knowledge base)
+chromadb>=0.4.24

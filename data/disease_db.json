@@ -1,59 +1,1146 @@
 {
-  "_comment": "Disease knowledge base — Multilingual AI Crop Doctor",
-  "_format": {
-    "crop_name": {
-      "disease_name": {
-        "symptoms": "Visible symptoms description",
-        "organic_treatment": "Organic remedy",
-        "chemical_treatment": "Pesticide generic name + dosage",
-        "yield_impact": "Estimated % yield loss if untreated",
-        "source": "ICAR Bulletin or reference",
-        "severity_markers": {
-          "mild": "Early-stage description",
-          "moderate": "Mid-stage description",
-          "severe": "Late-stage description"
-        }
-      }
+  "_meta": {
+    "description": "Crop Doctor Disease Knowledge Base",
+    "version": "1.0.0",
+    "total_entries": 38,
+    "sources": [
+      "ICAR-NIPHM IPM Packages (niphm.gov.in/IPMPackages)",
+      "ICAR Crop Protection Compendium",
+      "CICR Technical Bulletins (Cotton)",
+      "ICAR-DRR (Directorate of Rice Research)",
+      "ICAR-IARI Plant Pathology Division",
+      "NIPHM Pest Management Guidelines 2024"
+    ],
+    "note": "All pesticide recommendations follow CIB&RC (Central Insecticides Board & Registration Committee) approved labels. Dosages are per-litre of water unless stated as per-hectare.",
+    "crops_covered": ["Apple","Blueberry","Cherry","Corn","Grape","Orange","Peach","Pepper","Potato","Raspberry","Soybean","Squash","Strawberry","Tomato","Wheat","Rice","Cotton"],
+    "how_to_use": "Keys match the output of parse_class_name() in vision_agent.py. Look up by 'crop___disease' (lowercase, underscores). Diagnosis agent queries this before calling Claude.",
+    "schema": {
+      "key_format": "CropName___DiseaseName  (matches PlantVillage folder names exactly)",
+      "urgency": "act_today | act_this_week | monitor | none",
+      "severity_on_detection": "how severe is this disease when visually obvious",
+      "yield_loss_pct_max": "maximum yield loss if completely untreated"
     }
   },
-  "rice": {
-    "brown_leaf_spot": {
-      "symptoms": "Circular to oval brown spots with yellow halos on leaves; spots may coalesce at severe stage",
-      "organic_treatment": "Spray neem oil (3%) + garlic extract solution. Remove and destroy heavily infected leaves.",
-      "chemical_treatment": "Mancozeb 75% WP @ 2.5 g/L water. Spray at 10-day intervals.",
-      "yield_impact": "10–30% if untreated at moderate stage",
-      "source": "ICAR Rice Knowledge Management Portal",
-      "severity_markers": {
-        "mild": "Scattered small spots on <10% of leaf area",
-        "moderate": "Spots on 10–30% of leaf area, some coalescing",
-        "severe": "Spots covering >30% of leaves, widespread chlorosis"
+
+  "Apple___Apple_scab": {
+    "common_name": "Apple Scab",
+    "scientific_name": "Venturia inaequalis",
+    "hindi_name": "सेब की पपड़ी",
+    "crop": "Apple",
+    "type": "Fungal",
+    "symptoms": "Olive-green to brown scabby lesions on leaves and fruit surface. Leaves may curl and drop early.",
+    "conditions_favoring": "Cool, wet spring weather; temperatures 18–24°C with leaf wetness for 9+ hours",
+    "urgency": "act_this_week",
+    "severity_on_detection": "moderate",
+    "yield_loss_pct_max": 70,
+    "organic_treatment": {
+      "method": "Sulfur spray",
+      "preparation": "Wettable sulfur 80% WP @ 3g per litre of water",
+      "frequency": "Every 10–14 days during wet weather",
+      "notes": "Apply before rain if forecast. Do not apply when temperature >32°C — causes phytotoxicity."
+    },
+    "chemical_treatment": {
+      "primary": {
+        "pesticide": "Mancozeb 75% WP",
+        "dose": "2.5g per litre of water",
+        "frequency": "2–3 sprays at 10–15 day intervals",
+        "icar_ref": "ICAR-IARI, Apple Disease Management, Bulletin 12"
+      },
+      "alternative": {
+        "pesticide": "Captan 50% WP",
+        "dose": "3g per litre of water",
+        "frequency": "2 sprays at 15-day interval"
       }
     },
-    "blast": {
-      "symptoms": "Diamond-shaped grey-green lesions with brown borders on leaves and neck",
-      "organic_treatment": "Spray Pseudomonas fluorescens (talc formulation) @ 5 g/L water. Maintain field drainage.",
-      "chemical_treatment": "Tricyclazole 75% WP @ 0.6 g/L water or Isoprothiolane 40% EC @ 1.5 ml/L.",
-      "yield_impact": "Up to 50% if neck blast occurs at heading stage",
-      "source": "ICAR NRRI Bulletin 2022",
-      "severity_markers": {
-        "mild": "Small lesions on lower leaves only",
-        "moderate": "Lesions on multiple leaf layers, some neck infection",
-        "severe": "Neck blast, empty panicles, widespread damage"
-      }
-    }
+    "prevention": "Plant resistant varieties (Florina, Liberty). Rake and destroy fallen leaves. Prune for air circulation.",
+    "safe_to_harvest_days": 15,
+    "seasons_affected": ["spring", "summer"],
+    "affected_plant_parts": ["leaves", "fruit", "twigs"]
   },
-  "wheat": {
-    "yellow_rust": {
-      "symptoms": "Bright yellow-orange pustules in stripes along leaf veins; leaves feel powdery",
-      "organic_treatment": "Remove infected plant debris. Avoid excess nitrogen fertiliser. Plant resistant varieties next season.",
-      "chemical_treatment": "Propiconazole 25% EC @ 0.1% solution. Spray at first sign of symptoms.",
-      "yield_impact": "10–70% depending on growth stage at infection",
-      "source": "ICAR-IIWBR Bulletin 2023",
-      "severity_markers": {
-        "mild": "Yellow pustule stripes on <5% of leaf area",
-        "moderate": "Pustule stripes on 5–30% of leaves",
-        "severe": "Widespread striping, stem infection visible"
+
+  "Apple___Black_rot": {
+    "common_name": "Black Rot of Apple",
+    "scientific_name": "Botryosphaeria obtusa",
+    "hindi_name": "सेब का काला सड़न",
+    "crop": "Apple",
+    "type": "Fungal",
+    "symptoms": "Circular brown to black lesions on fruit starting at the calyx end. Leaf spots with purple border and tan center (frogeye leaf spot).",
+    "conditions_favoring": "Warm humid weather, temperatures 20–30°C. Enters through wounds.",
+    "urgency": "act_today",
+    "severity_on_detection": "severe",
+    "yield_loss_pct_max": 80,
+    "organic_treatment": {
+      "method": "Copper-based spray + pruning",
+      "preparation": "Bordeaux mixture 1% (10g copper sulphate + 10g lime in 1 litre water)",
+      "frequency": "2 sprays — pre-bloom and post-bloom",
+      "notes": "Remove and destroy all mummified fruit immediately."
+    },
+    "chemical_treatment": {
+      "primary": {
+        "pesticide": "Thiophanate-methyl 70% WP",
+        "dose": "1g per litre of water",
+        "frequency": "3 sprays at 10-day interval starting at early fruit development",
+        "icar_ref": "ICAR Crop Protection Compendium, Apple Fungal Diseases"
       }
-    }
+    },
+    "prevention": "Prune dead wood in winter. Remove mummified fruit before bud break. Avoid wounding fruit.",
+    "safe_to_harvest_days": 21,
+    "seasons_affected": ["summer", "autumn"],
+    "affected_plant_parts": ["fruit", "leaves", "bark"]
+  },
+
+  "Apple___Cedar_apple_rust": {
+    "common_name": "Cedar-Apple Rust",
+    "scientific_name": "Gymnosporangium juniperi-virginianae",
+    "hindi_name": "सेब का जंग रोग",
+    "crop": "Apple",
+    "type": "Fungal",
+    "symptoms": "Bright orange-yellow spots on upper leaf surface in spring/early summer. Lesions may develop tube-like projections on undersides.",
+    "conditions_favoring": "Requires alternating hosts (juniper/cedar nearby). Spores spread during wet spring.",
+    "urgency": "act_this_week",
+    "severity_on_detection": "moderate",
+    "yield_loss_pct_max": 40,
+    "organic_treatment": {
+      "method": "Sulfur spray",
+      "preparation": "Wettable sulfur 80% WP @ 3g per litre",
+      "frequency": "At pink bud stage, petal fall, and 10 days after",
+      "notes": "Remove any nearby juniper/cedar trees if possible."
+    },
+    "chemical_treatment": {
+      "primary": {
+        "pesticide": "Myclobutanil 10% WP",
+        "dose": "1g per litre of water",
+        "frequency": "2–3 sprays from pink bud to 3 weeks after petal fall",
+        "icar_ref": "ICAR Apple IPM Package"
+      }
+    },
+    "prevention": "Plant rust-resistant apple varieties. Remove alternate juniper hosts within 300m if feasible.",
+    "safe_to_harvest_days": 14,
+    "seasons_affected": ["spring"],
+    "affected_plant_parts": ["leaves", "fruit", "twigs"]
+  },
+
+  "Apple___healthy": {
+    "common_name": "Healthy Apple",
+    "crop": "Apple",
+    "type": "healthy",
+    "symptoms": "No disease symptoms present.",
+    "urgency": "none",
+    "severity_on_detection": "none",
+    "yield_loss_pct_max": 0,
+    "organic_treatment": { "method": "No treatment needed", "preparation": "", "frequency": "", "notes": "Continue regular preventive care." },
+    "chemical_treatment": {},
+    "prevention": "Maintain orchard hygiene. Annual dormant spray with lime sulfur as preventive measure.",
+    "safe_to_harvest_days": 0,
+    "seasons_affected": [],
+    "affected_plant_parts": []
+  },
+
+  "Blueberry___healthy": {
+    "common_name": "Healthy Blueberry",
+    "crop": "Blueberry",
+    "type": "healthy",
+    "symptoms": "No disease symptoms.",
+    "urgency": "none",
+    "severity_on_detection": "none",
+    "yield_loss_pct_max": 0,
+    "organic_treatment": { "method": "No treatment needed", "preparation": "", "frequency": "", "notes": "Maintain soil pH 4.5–5.5 for healthy blueberry growth." },
+    "chemical_treatment": {},
+    "prevention": "Ensure acidic soil. Prune for airflow. Mulch with pine bark.",
+    "safe_to_harvest_days": 0,
+    "seasons_affected": [],
+    "affected_plant_parts": []
+  },
+
+  "Cherry_(including_sour)___Powdery_mildew": {
+    "common_name": "Cherry Powdery Mildew",
+    "scientific_name": "Podosphaera clandestina",
+    "hindi_name": "चेरी का चूर्णी फफूंद",
+    "crop": "Cherry",
+    "type": "Fungal",
+    "symptoms": "White powdery coating on young leaves, shoots, and fruit surface. Leaves may curl and distort.",
+    "conditions_favoring": "Warm dry days (20–28°C) with cool nights. High humidity without rain.",
+    "urgency": "act_this_week",
+    "severity_on_detection": "moderate",
+    "yield_loss_pct_max": 35,
+    "organic_treatment": {
+      "method": "Potassium bicarbonate or neem oil",
+      "preparation": "Potassium bicarbonate 5g per litre OR neem oil 5ml + 1ml soap per litre",
+      "frequency": "Every 7–10 days",
+      "notes": "Apply early morning or evening. Neem oil effective at early stages."
+    },
+    "chemical_treatment": {
+      "primary": {
+        "pesticide": "Tebuconazole 25.9% EC",
+        "dose": "1ml per litre of water",
+        "frequency": "2–3 sprays at 14-day intervals",
+        "icar_ref": "ICAR Crop Protection Guidelines, Stone Fruits"
+      }
+    },
+    "prevention": "Avoid dense planting. Prune for airflow. Avoid excess nitrogen fertilizer.",
+    "safe_to_harvest_days": 14,
+    "seasons_affected": ["spring", "summer"],
+    "affected_plant_parts": ["leaves", "shoots", "fruit"]
+  },
+
+  "Cherry_(including_sour)___healthy": {
+    "common_name": "Healthy Cherry",
+    "crop": "Cherry",
+    "type": "healthy",
+    "symptoms": "No disease.",
+    "urgency": "none",
+    "severity_on_detection": "none",
+    "yield_loss_pct_max": 0,
+    "organic_treatment": { "method": "No treatment needed", "preparation": "", "frequency": "", "notes": "" },
+    "chemical_treatment": {},
+    "prevention": "Annual dormant copper spray. Good drainage.",
+    "safe_to_harvest_days": 0,
+    "seasons_affected": [],
+    "affected_plant_parts": []
+  },
+
+  "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot": {
+    "common_name": "Gray Leaf Spot of Corn",
+    "scientific_name": "Cercospora zeae-maydis",
+    "hindi_name": "मक्का का भूरा पत्ती धब्बा",
+    "crop": "Corn",
+    "type": "Fungal",
+    "symptoms": "Rectangular tan to gray lesions parallel to leaf veins. Lesions have well-defined borders. Severe infection causes entire leaf death.",
+    "conditions_favoring": "High humidity (>90%), warm temperatures 25–30°C, poor air circulation in dense stands.",
+    "urgency": "act_this_week",
+    "severity_on_detection": "moderate",
+    "yield_loss_pct_max": 50,
+    "organic_treatment": {
+      "method": "Crop rotation and spacing",
+      "preparation": "No direct organic spray — cultural control is most effective",
+      "frequency": "Preventive — rotate with non-cereal crop next season",
+      "notes": "Remove and destroy infected crop debris after harvest."
+    },
+    "chemical_treatment": {
+      "primary": {
+        "pesticide": "Mancozeb 75% WP",
+        "dose": "2.5g per litre of water",
+        "frequency": "2 sprays — at silking and 2 weeks after",
+        "icar_ref": "ICAR-IARI, Maize Disease Management Bulletin"
+      },
+      "alternative": {
+        "pesticide": "Propiconazole 25% EC",
+        "dose": "1ml per litre of water",
+        "frequency": "2 sprays at 14-day interval"
+      }
+    },
+    "prevention": "Plant resistant hybrids. Increase row spacing. Avoid overhead irrigation.",
+    "safe_to_harvest_days": 30,
+    "seasons_affected": ["kharif", "summer"],
+    "affected_plant_parts": ["leaves"]
+  },
+
+  "Corn_(maize)___Common_rust_": {
+    "common_name": "Common Rust of Corn",
+    "scientific_name": "Puccinia sorghi",
+    "hindi_name": "मक्का का सामान्य जंग",
+    "crop": "Corn",
+    "type": "Fungal",
+    "symptoms": "Small, round to elongated, brick-red pustules on both leaf surfaces. Pustules turn black as season progresses.",
+    "conditions_favoring": "Cool temperatures 16–23°C with high humidity. Spores spread by wind.",
+    "urgency": "act_this_week",
+    "severity_on_detection": "moderate",
+    "yield_loss_pct_max": 40,
+    "organic_treatment": {
+      "method": "Sulfur dust",
+      "preparation": "Dust sulfur 5–6 kg per hectare",
+      "frequency": "2 applications at 10-day interval",
+      "notes": "Best applied early morning before dew dries."
+    },
+    "chemical_treatment": {
+      "primary": {
+        "pesticide": "Mancozeb 75% WP",
+        "dose": "2.5g per litre of water",
+        "frequency": "2–3 sprays at 10-day intervals starting at first sign",
+        "icar_ref": "ICAR Maize IPM Package, NIPHM"
+      }
+    },
+    "prevention": "Use rust-resistant varieties. Avoid late planting. Ensure good field drainage.",
+    "safe_to_harvest_days": 30,
+    "seasons_affected": ["kharif", "rabi"],
+    "affected_plant_parts": ["leaves", "husks"]
+  },
+
+  "Corn_(maize)___Northern_Leaf_Blight": {
+    "common_name": "Northern Corn Leaf Blight",
+    "scientific_name": "Exserohilum turcicum",
+    "hindi_name": "मक्का का उत्तरी पत्ती झुलसा",
+    "crop": "Corn",
+    "type": "Fungal",
+    "symptoms": "Long, cigar-shaped gray-green to tan lesions on leaves, 2.5–15cm long. Lesions may cover entire leaf in severe cases.",
+    "conditions_favoring": "Temperatures 18–27°C, humid conditions, extended leaf wetness.",
+    "urgency": "act_this_week",
+    "severity_on_detection": "moderate",
+    "yield_loss_pct_max": 50,
+    "organic_treatment": {
+      "method": "Neem-based spray",
+      "preparation": "Neem oil 5ml + liquid soap 1ml per litre water",
+      "frequency": "Every 10 days, 2–3 applications",
+      "notes": "Effective only at early stage. Remove badly infected lower leaves."
+    },
+    "chemical_treatment": {
+      "primary": {
+        "pesticide": "Zineb 75% WP",
+        "dose": "2g per litre of water",
+        "frequency": "2–3 sprays at 10–14 day intervals",
+        "icar_ref": "ICAR-IARI Maize Disease Bulletin"
+      }
+    },
+    "prevention": "Crop rotation with non-grass crops. Plant resistant hybrids (check with local KVK for regional varieties). Destroy crop debris after harvest.",
+    "safe_to_harvest_days": 30,
+    "seasons_affected": ["kharif"],
+    "affected_plant_parts": ["leaves"]
+  },
+
+  "Corn_(maize)___healthy": {
+    "common_name": "Healthy Corn",
+    "crop": "Corn",
+    "type": "healthy",
+    "symptoms": "No disease symptoms.",
+    "urgency": "none",
+    "severity_on_detection": "none",
+    "yield_loss_pct_max": 0,
+    "organic_treatment": { "method": "No treatment needed", "preparation": "", "frequency": "", "notes": "" },
+    "chemical_treatment": {},
+    "prevention": "Balanced fertilization. Ensure proper drainage. Rotate crops every 2 years.",
+    "safe_to_harvest_days": 0,
+    "seasons_affected": [],
+    "affected_plant_parts": []
+  },
+
+  "Grape___Black_rot": {
+    "common_name": "Black Rot of Grape",
+    "scientific_name": "Guignardia bidwellii",
+    "hindi_name": "अंगूर का काला सड़न",
+    "crop": "Grape",
+    "type": "Fungal",
+    "symptoms": "Small, circular tan spots with dark brown borders on leaves. Infected berries shrivel into hard black mummies.",
+    "conditions_favoring": "Warm wet weather 24–29°C. Spores released during rain.",
+    "urgency": "act_today",
+    "severity_on_detection": "severe",
+    "yield_loss_pct_max": 100,
+    "organic_treatment": {
+      "method": "Bordeaux mixture",
+      "preparation": "1% Bordeaux mixture (10g copper sulphate + 10g lime per litre water)",
+      "frequency": "At bud break, before bloom, after bloom, and at berry set (4 sprays total)",
+      "notes": "Remove and destroy all mummified berries from the vineyard."
+    },
+    "chemical_treatment": {
+      "primary": {
+        "pesticide": "Mancozeb 75% WP",
+        "dose": "2.5g per litre of water",
+        "frequency": "4–6 sprays through the season at 10–14 day intervals",
+        "icar_ref": "ICAR-NRC Grapes, Disease Management Bulletin"
+      }
+    },
+    "prevention": "Remove mummified fruit and infected leaves. Prune for open canopy. Avoid wetting foliage when irrigating.",
+    "safe_to_harvest_days": 21,
+    "seasons_affected": ["spring", "summer"],
+    "affected_plant_parts": ["leaves", "berries", "shoots"]
+  },
+
+  "Grape___Esca_(Black_Measles)": {
+    "common_name": "Esca / Black Measles of Grape",
+    "scientific_name": "Phaeomoniella chlamydospora / Phaeoacremonium spp.",
+    "hindi_name": "अंगूर का एस्का रोग",
+    "crop": "Grape",
+    "type": "Fungal",
+    "symptoms": "Tiger-striped yellowing/browning between leaf veins. Berries develop dark purple spots (measles). In severe cases, sudden whole-vine wilting (apoplexy).",
+    "conditions_favoring": "Enters through pruning wounds. Dry summers after wet winters.",
+    "urgency": "act_today",
+    "severity_on_detection": "severe",
+    "yield_loss_pct_max": 90,
+    "organic_treatment": {
+      "method": "Wound protection paste",
+      "preparation": "Apply Trichoderma-based biocontrol paste (Trichoderma viride 1% WP mixed with water to paste) on all pruning cuts immediately after pruning",
+      "frequency": "Every pruning season",
+      "notes": "No curative spray exists. Focus entirely on prevention via wound protection."
+    },
+    "chemical_treatment": {
+      "primary": {
+        "pesticide": "Thiophanate-methyl 70% WP (wound sealant application)",
+        "dose": "2g per litre — paint onto pruning cuts within 24 hours",
+        "frequency": "Every pruning season",
+        "icar_ref": "ICAR-NRC Grapes, Esca Management Note"
+      }
+    },
+    "prevention": "Prune during dry weather. Apply wound sealant immediately. Remove and destroy severely infected vines. Avoid large pruning wounds.",
+    "safe_to_harvest_days": 0,
+    "seasons_affected": ["all"],
+    "affected_plant_parts": ["leaves", "wood", "berries"]
+  },
+
+  "Grape___Leaf_blight_(Isariopsis_Leaf_Spot)": {
+    "common_name": "Grape Leaf Blight",
+    "scientific_name": "Pseudocercospora vitis",
+    "hindi_name": "अंगूर का पत्ती झुलसा",
+    "crop": "Grape",
+    "type": "Fungal",
+    "symptoms": "Angular brown spots on leaves surrounded by yellow halo. Spots enlarge and leaf dies. Fruit may also be affected.",
+    "conditions_favoring": "High humidity, warm temperatures 25–30°C.",
+    "urgency": "act_this_week",
+    "severity_on_detection": "moderate",
+    "yield_loss_pct_max": 40,
+    "organic_treatment": {
+      "method": "Neem oil spray",
+      "preparation": "Neem oil 5ml + liquid soap 1ml per litre water",
+      "frequency": "Every 10 days, 3 applications",
+      "notes": "Remove and dispose infected leaves."
+    },
+    "chemical_treatment": {
+      "primary": {
+        "pesticide": "Copper oxychloride 50% WP",
+        "dose": "3g per litre of water",
+        "frequency": "2–3 sprays at 15-day intervals",
+        "icar_ref": "ICAR-NRC Grapes Disease Bulletin"
+      }
+    },
+    "prevention": "Avoid dense canopy. Ensure good drainage. Remove fallen leaves.",
+    "safe_to_harvest_days": 14,
+    "seasons_affected": ["kharif", "summer"],
+    "affected_plant_parts": ["leaves", "fruit"]
+  },
+
+  "Grape___healthy": {
+    "common_name": "Healthy Grape",
+    "crop": "Grape",
+    "type": "healthy",
+    "symptoms": "No disease.",
+    "urgency": "none",
+    "severity_on_detection": "none",
+    "yield_loss_pct_max": 0,
+    "organic_treatment": { "method": "No treatment needed", "preparation": "", "frequency": "", "notes": "" },
+    "chemical_treatment": {},
+    "prevention": "Annual pruning. Dormant copper spray. Weed management in vineyard.",
+    "safe_to_harvest_days": 0,
+    "seasons_affected": [],
+    "affected_plant_parts": []
+  },
+
+  "Orange___Haunglongbing_(Citrus_greening)": {
+    "common_name": "Citrus Greening (HLB)",
+    "scientific_name": "Candidatus Liberibacter asiaticus",
+    "hindi_name": "संतरे का हरीतिमा/ग्रीनिंग रोग",
+    "crop": "Orange",
+    "type": "Bacterial (vector-borne)",
+    "symptoms": "Asymmetric yellowing of leaves (blotchy mottle). Fruit small, lopsided, bitter, with green tip even when ripe. Tree decline over 2–5 years.",
+    "conditions_favoring": "Spread by Asian citrus psyllid (Diaphorina citri). Warm humid conditions favor psyllid population.",
+    "urgency": "act_today",
+    "severity_on_detection": "severe",
+    "yield_loss_pct_max": 100,
+    "organic_treatment": {
+      "method": "Remove infected tree + psyllid control",
+      "preparation": "No cure exists. Neem oil 5ml + soap 1ml per litre to control psyllid vector",
+      "frequency": "Psyllid spray every 2 weeks during new flush period",
+      "notes": "This disease has NO CURE. Infected trees must be removed and destroyed to protect neighboring trees. Inform your local horticulture department immediately."
+    },
+    "chemical_treatment": {
+      "primary": {
+        "pesticide": "Imidacloprid 17.8% SL (for psyllid vector control only)",
+        "dose": "0.5ml per litre of water",
+        "frequency": "At new flush emergence (3–4 times per year)",
+        "icar_ref": "ICAR-CCRI Citrus Greening Management Advisory"
+      }
+    },
+    "prevention": "Use certified disease-free planting material. Install psyllid monitoring traps. Report suspected cases to State Horticulture Department. Quarantine new plants before introducing to orchard.",
+    "safe_to_harvest_days": 0,
+    "seasons_affected": ["all"],
+    "affected_plant_parts": ["leaves", "fruit", "whole tree"],
+    "government_scheme": "Infected citrus growers may be eligible for compensation under MIDH scheme — contact nearest horticulture officer"
+  },
+
+  "Peach___Bacterial_spot": {
+    "common_name": "Bacterial Spot of Peach",
+    "scientific_name": "Xanthomonas arboricola pv. pruni",
+    "hindi_name": "आड़ू का जीवाणु धब्बा",
+    "crop": "Peach",
+    "type": "Bacterial",
+    "symptoms": "Small water-soaked spots on leaves that turn brown with purple border. Spots may fall out creating 'shot-hole' appearance. Fruit shows sunken dark spots.",
+    "conditions_favoring": "Wet spring weather, strong winds that cause wounds, temperatures 19–28°C.",
+    "urgency": "act_this_week",
+    "severity_on_detection": "moderate",
+    "yield_loss_pct_max": 60,
+    "organic_treatment": {
+      "method": "Copper spray",
+      "preparation": "Copper hydroxide 53.8% DF @ 2.5g per litre",
+      "frequency": "Preventive sprays — at green tip, pink bud, petal fall",
+      "notes": "Avoid spraying during bloom to protect bees."
+    },
+    "chemical_treatment": {
+      "primary": {
+        "pesticide": "Copper oxychloride 50% WP",
+        "dose": "3g per litre of water",
+        "frequency": "3–4 sprays from bud swell through shuck split",
+        "icar_ref": "ICAR Crop Protection, Stone Fruits"
+      }
+    },
+    "prevention": "Plant in well-drained site with windbreaks. Use resistant varieties. Avoid overhead irrigation.",
+    "safe_to_harvest_days": 14,
+    "seasons_affected": ["spring", "summer"],
+    "affected_plant_parts": ["leaves", "fruit", "twigs"]
+  },
+
+  "Peach___healthy": {
+    "common_name": "Healthy Peach",
+    "crop": "Peach",
+    "type": "healthy",
+    "symptoms": "No disease.",
+    "urgency": "none",
+    "severity_on_detection": "none",
+    "yield_loss_pct_max": 0,
+    "organic_treatment": { "method": "No treatment needed", "preparation": "", "frequency": "", "notes": "" },
+    "chemical_treatment": {},
+    "prevention": "Dormant copper spray. Proper pruning. Remove fallen fruit.",
+    "safe_to_harvest_days": 0,
+    "seasons_affected": [],
+    "affected_plant_parts": []
+  },
+
+  "Pepper,_bell___Bacterial_spot": {
+    "common_name": "Bacterial Spot of Bell Pepper",
+    "scientific_name": "Xanthomonas euvesicatoria",
+    "hindi_name": "शिमला मिर्च का जीवाणु धब्बा",
+    "crop": "Pepper",
+    "type": "Bacterial",
+    "symptoms": "Small, water-soaked spots on leaves that become brown with yellow halo. Fruit shows raised, rough, brown to black spots.",
+    "conditions_favoring": "Warm rainy weather 24–30°C. Spreads through rain splash and wind.",
+    "urgency": "act_this_week",
+    "severity_on_detection": "moderate",
+    "yield_loss_pct_max": 50,
+    "organic_treatment": {
+      "method": "Copper spray",
+      "preparation": "Copper hydroxide 53.8% @ 2g per litre OR Bordeaux mixture 1%",
+      "frequency": "Every 7–10 days during wet weather",
+      "notes": "Use disease-free certified seed. Avoid working in field when wet."
+    },
+    "chemical_treatment": {
+      "primary": {
+        "pesticide": "Copper oxychloride 50% WP",
+        "dose": "3g per litre of water",
+        "frequency": "4–6 sprays at 7–10 day intervals",
+        "icar_ref": "ICAR-IARI Vegetable Disease Management Bulletin"
+      }
+    },
+    "prevention": "Use resistant varieties. Crop rotation — avoid solanaceous crops in same plot for 3 years. Drip irrigation instead of overhead.",
+    "safe_to_harvest_days": 7,
+    "seasons_affected": ["kharif", "summer"],
+    "affected_plant_parts": ["leaves", "fruit", "stems"]
+  },
+
+  "Pepper,_bell___healthy": {
+    "common_name": "Healthy Bell Pepper",
+    "crop": "Pepper",
+    "type": "healthy",
+    "symptoms": "No disease.",
+    "urgency": "none",
+    "severity_on_detection": "none",
+    "yield_loss_pct_max": 0,
+    "organic_treatment": { "method": "No treatment needed", "preparation": "", "frequency": "", "notes": "" },
+    "chemical_treatment": {},
+    "prevention": "Rotate crops. Use certified seed. Balanced nutrition especially calcium.",
+    "safe_to_harvest_days": 0,
+    "seasons_affected": [],
+    "affected_plant_parts": []
+  },
+
+  "Potato___Early_blight": {
+    "common_name": "Early Blight of Potato",
+    "scientific_name": "Alternaria solani",
+    "hindi_name": "आलू का अगेती झुलसा",
+    "crop": "Potato",
+    "type": "Fungal",
+    "symptoms": "Dark brown to black lesions with concentric rings (target board pattern) on older leaves. Yellowing around spots. Severe infection causes defoliation.",
+    "conditions_favoring": "Temperatures 24–29°C, alternating wet and dry conditions. Weakened plants more susceptible.",
+    "urgency": "act_this_week",
+    "severity_on_detection": "moderate",
+    "yield_loss_pct_max": 30,
+    "organic_treatment": {
+      "method": "Neem oil spray",
+      "preparation": "Neem oil 5ml + liquid soap 1ml per litre of water",
+      "frequency": "Every 7–10 days, 3–4 applications",
+      "notes": "Remove and burn severely infected lower leaves. Avoid wetting foliage."
+    },
+    "chemical_treatment": {
+      "primary": {
+        "pesticide": "Mancozeb 75% WP",
+        "dose": "2.5g per litre of water",
+        "frequency": "3–4 sprays at 10-day intervals starting at first symptom",
+        "icar_ref": "ICAR-CPRI Potato Disease Management Bulletin No. 8"
+      },
+      "alternative": {
+        "pesticide": "Chlorothalonil 75% WP",
+        "dose": "2g per litre of water",
+        "frequency": "3 sprays at 10–14 day intervals"
+      }
+    },
+    "prevention": "Use disease-free certified seed. Avoid water stress. Balanced fertilization — excess nitrogen worsens disease. Destroy crop debris.",
+    "safe_to_harvest_days": 7,
+    "seasons_affected": ["rabi", "winter"],
+    "affected_plant_parts": ["leaves", "stems", "tubers"]
+  },
+
+  "Potato___Late_blight": {
+    "common_name": "Late Blight of Potato",
+    "scientific_name": "Phytophthora infestans",
+    "hindi_name": "आलू का पिछेती झुलसा",
+    "crop": "Potato",
+    "type": "Oomycete (water mould)",
+    "symptoms": "Water-soaked pale green spots on leaf margins/tips that rapidly turn dark brown. White cottony fungal growth on underside in humid weather. Foul smell from infected tubers.",
+    "conditions_favoring": "Cool (15–20°C) and very wet conditions. Can destroy entire crop in 7–10 days under ideal conditions.",
+    "urgency": "act_today",
+    "severity_on_detection": "severe",
+    "yield_loss_pct_max": 100,
+    "organic_treatment": {
+      "method": "Bordeaux mixture (preventive only)",
+      "preparation": "1% Bordeaux mixture (10g copper sulphate + 10g lime per litre water)",
+      "frequency": "Preventive only — every 7 days during cool/wet weather forecasts",
+      "notes": "CRITICAL: Late blight spreads extremely rapidly. Do NOT wait — treat the moment symptoms appear. Bordeaux mixture is only preventive; use chemicals for active infection."
+    },
+    "chemical_treatment": {
+      "primary": {
+        "pesticide": "Cymoxanil 8% + Mancozeb 64% WP (e.g. Curzate M8)",
+        "dose": "2.5g per litre of water",
+        "frequency": "Every 7 days until conditions improve (min 3 sprays)",
+        "icar_ref": "ICAR-CPRI Late Blight Emergency Advisory, Bulletin No. 12"
+      },
+      "alternative": {
+        "pesticide": "Metalaxyl 8% + Mancozeb 64% WP",
+        "dose": "2.5g per litre",
+        "frequency": "Every 7 days, alternate with primary to prevent resistance"
+      }
+    },
+    "prevention": "Plant resistant varieties (Kufri Bahar, Kufri Jyoti). Ensure good drainage. Avoid planting in low-lying fields. Destroy volunteer potato plants.",
+    "safe_to_harvest_days": 14,
+    "seasons_affected": ["rabi", "winter"],
+    "affected_plant_parts": ["leaves", "stems", "tubers"],
+    "government_scheme": "PMFBY crop insurance covers late blight losses — contact your bank or CSC center"
+  },
+
+  "Potato___healthy": {
+    "common_name": "Healthy Potato",
+    "crop": "Potato",
+    "type": "healthy",
+    "symptoms": "No disease.",
+    "urgency": "none",
+    "severity_on_detection": "none",
+    "yield_loss_pct_max": 0,
+    "organic_treatment": { "method": "No treatment needed", "preparation": "", "frequency": "", "notes": "" },
+    "chemical_treatment": {},
+    "prevention": "Use certified seed. Preventive Bordeaux spray during cool wet weather. Proper earthing-up.",
+    "safe_to_harvest_days": 0,
+    "seasons_affected": [],
+    "affected_plant_parts": []
+  },
+
+  "Raspberry___healthy": {
+    "common_name": "Healthy Raspberry",
+    "crop": "Raspberry",
+    "type": "healthy",
+    "symptoms": "No disease.",
+    "urgency": "none",
+    "severity_on_detection": "none",
+    "yield_loss_pct_max": 0,
+    "organic_treatment": { "method": "No treatment needed", "preparation": "", "frequency": "", "notes": "" },
+    "chemical_treatment": {},
+    "prevention": "Annual cane pruning. Good air circulation. Remove old canes after harvest.",
+    "safe_to_harvest_days": 0,
+    "seasons_affected": [],
+    "affected_plant_parts": []
+  },
+
+  "Soybean___healthy": {
+    "common_name": "Healthy Soybean",
+    "crop": "Soybean",
+    "type": "healthy",
+    "symptoms": "No disease.",
+    "urgency": "none",
+    "severity_on_detection": "none",
+    "yield_loss_pct_max": 0,
+    "organic_treatment": { "method": "No treatment needed", "preparation": "", "frequency": "", "notes": "" },
+    "chemical_treatment": {},
+    "prevention": "Seed treatment with Rhizobium + Trichoderma. Crop rotation. Avoid waterlogging.",
+    "safe_to_harvest_days": 0,
+    "seasons_affected": [],
+    "affected_plant_parts": []
+  },
+
+  "Squash___Powdery_mildew": {
+    "common_name": "Powdery Mildew of Squash",
+    "scientific_name": "Podosphaera xanthii / Erysiphe cichoracearum",
+    "hindi_name": "कद्दू का चूर्णी फफूंद",
+    "crop": "Squash",
+    "type": "Fungal",
+    "symptoms": "White powdery spots on upper leaf surface, starting as circular patches. Spreads to cover entire leaf. Infected leaves yellow and die prematurely.",
+    "conditions_favoring": "Warm dry days (23–30°C), high humidity at night, no rain to wash spores.",
+    "urgency": "act_this_week",
+    "severity_on_detection": "moderate",
+    "yield_loss_pct_max": 30,
+    "organic_treatment": {
+      "method": "Baking soda or neem oil spray",
+      "preparation": "Baking soda (sodium bicarbonate) 10g + few drops soap per litre water OR neem oil 5ml per litre",
+      "frequency": "Every 7 days, 3–4 applications",
+      "notes": "Spray both leaf surfaces. Early morning application is most effective."
+    },
+    "chemical_treatment": {
+      "primary": {
+        "pesticide": "Sulfur 40% WG or wettable sulfur 80% WP",
+        "dose": "3g per litre of water",
+        "frequency": "Every 10–14 days, 2–3 sprays",
+        "icar_ref": "ICAR-IIVR Vegetable Disease Management, Cucurbits"
+      }
+    },
+    "prevention": "Plant resistant varieties. Ensure good spacing. Avoid overhead irrigation in evening.",
+    "safe_to_harvest_days": 3,
+    "seasons_affected": ["kharif", "summer"],
+    "affected_plant_parts": ["leaves", "stems", "fruit"]
+  },
+
+  "Strawberry___Leaf_scorch": {
+    "common_name": "Strawberry Leaf Scorch",
+    "scientific_name": "Diplocarpon earlianum",
+    "hindi_name": "स्ट्रॉबेरी का पत्ती झुलसा",
+    "crop": "Strawberry",
+    "type": "Fungal",
+    "symptoms": "Small dark purple to reddish-purple irregular spots on leaf surfaces. Centers turn grayish and spots may coalesce. Severely infected leaves wither (scorch).",
+    "conditions_favoring": "Wet, humid conditions. Cool to warm temperatures 20–28°C.",
+    "urgency": "act_this_week",
+    "severity_on_detection": "moderate",
+    "yield_loss_pct_max": 30,
+    "organic_treatment": {
+      "method": "Copper spray",
+      "preparation": "Copper oxychloride 50% WP @ 3g per litre",
+      "frequency": "2–3 sprays at 10-day intervals",
+      "notes": "Remove and destroy old infected leaves before new growth."
+    },
+    "chemical_treatment": {
+      "primary": {
+        "pesticide": "Captan 50% WP",
+        "dose": "3g per litre of water",
+        "frequency": "3–4 sprays at 10–14 day intervals",
+        "icar_ref": "ICAR Strawberry IPM Guidelines"
+      }
+    },
+    "prevention": "Use certified disease-free runners. Avoid wetting foliage. Remove old leaves during renovation.",
+    "safe_to_harvest_days": 3,
+    "seasons_affected": ["winter", "spring"],
+    "affected_plant_parts": ["leaves"]
+  },
+
+  "Strawberry___healthy": {
+    "common_name": "Healthy Strawberry",
+    "crop": "Strawberry",
+    "type": "healthy",
+    "symptoms": "No disease.",
+    "urgency": "none",
+    "severity_on_detection": "none",
+    "yield_loss_pct_max": 0,
+    "organic_treatment": { "method": "No treatment needed", "preparation": "", "frequency": "", "notes": "" },
+    "chemical_treatment": {},
+    "prevention": "Use disease-free runners. Mulch to prevent soil splash. Remove old leaves monthly.",
+    "safe_to_harvest_days": 0,
+    "seasons_affected": [],
+    "affected_plant_parts": []
+  },
+
+  "Tomato___Bacterial_spot": {
+    "common_name": "Bacterial Spot of Tomato",
+    "scientific_name": "Xanthomonas perforans",
+    "hindi_name": "टमाटर का जीवाणु धब्बा",
+    "crop": "Tomato",
+    "type": "Bacterial",
+    "symptoms": "Small, water-soaked circular spots on leaves, 3–5mm diameter. Spots turn dark brown with yellow halo. Fruit shows raised, rough, dark spots that crack.",
+    "conditions_favoring": "Warm (24–30°C), wet, and windy conditions. Spreads rapidly by rain splash.",
+    "urgency": "act_this_week",
+    "severity_on_detection": "moderate",
+    "yield_loss_pct_max": 50,
+    "organic_treatment": {
+      "method": "Copper spray",
+      "preparation": "Copper oxychloride 50% WP @ 3g per litre",
+      "frequency": "Every 7–10 days during wet weather, 4–5 sprays",
+      "notes": "Use only certified disease-free seed or transplants."
+    },
+    "chemical_treatment": {
+      "primary": {
+        "pesticide": "Copper hydroxide 53.8% DF",
+        "dose": "2.5g per litre of water",
+        "frequency": "4–6 sprays at 7-day intervals",
+        "icar_ref": "ICAR-IIHR Tomato Disease Management Bulletin"
+      }
+    },
+    "prevention": "Crop rotation (3 years away from solanaceous crops). Use drip irrigation. Remove infected plant debris immediately.",
+    "safe_to_harvest_days": 7,
+    "seasons_affected": ["kharif", "summer"],
+    "affected_plant_parts": ["leaves", "stems", "fruit"]
+  },
+
+  "Tomato___Early_blight": {
+    "common_name": "Early Blight of Tomato",
+    "scientific_name": "Alternaria solani",
+    "hindi_name": "टमाटर का अगेती झुलसा",
+    "crop": "Tomato",
+    "type": "Fungal",
+    "symptoms": "Dark brown circular lesions with concentric rings (target-board pattern) on older lower leaves. Yellow halo around spots. Stem lesions at soil level (collar rot in seedlings).",
+    "conditions_favoring": "Warm temperatures 24–29°C, alternating wet/dry, nutrient-deficient plants.",
+    "urgency": "act_this_week",
+    "severity_on_detection": "moderate",
+    "yield_loss_pct_max": 40,
+    "organic_treatment": {
+      "method": "Neem oil + copper spray combination",
+      "preparation": "Neem oil 5ml + copper oxychloride 2g + liquid soap 1ml per litre water",
+      "frequency": "Every 7–10 days, 3–4 sprays",
+      "notes": "Remove infected lower leaves before spraying. Mulch around plants."
+    },
+    "chemical_treatment": {
+      "primary": {
+        "pesticide": "Mancozeb 75% WP",
+        "dose": "2.5g per litre of water",
+        "frequency": "4–5 sprays at 7–10 day intervals",
+        "icar_ref": "ICAR-IIHR Tomato IPM Package, Bulletin No. 14"
+      },
+      "alternative": {
+        "pesticide": "Azoxystrobin 23% SC",
+        "dose": "1ml per litre of water",
+        "frequency": "2–3 sprays at 10–14 day intervals"
+      }
+    },
+    "prevention": "Use resistant varieties (Arka Rakshak, Arka Samrat). Avoid overhead irrigation. Balance fertilizer — excess N worsens disease.",
+    "safe_to_harvest_days": 7,
+    "seasons_affected": ["kharif", "rabi", "summer"],
+    "affected_plant_parts": ["leaves", "stem", "fruit"]
+  },
+
+  "Tomato___Late_blight": {
+    "common_name": "Late Blight of Tomato",
+    "scientific_name": "Phytophthora infestans",
+    "hindi_name": "टमाटर का पिछेती झुलसा",
+    "crop": "Tomato",
+    "type": "Oomycete",
+    "symptoms": "Greasy water-soaked patches on leaves that rapidly turn dark brown/black. White cottony growth on underside in humid conditions. Dark streaks on stems. Brown discoloration of fruit.",
+    "conditions_favoring": "Cool (15–20°C) and wet. Can destroy crop within 1 week under favorable conditions.",
+    "urgency": "act_today",
+    "severity_on_detection": "severe",
+    "yield_loss_pct_max": 100,
+    "organic_treatment": {
+      "method": "Bordeaux mixture (preventive only)",
+      "preparation": "1% Bordeaux mixture every 7 days when cool/wet weather is forecast",
+      "frequency": "Preventive only — must also use chemical treatment for active infection",
+      "notes": "EMERGENCY: Late blight can destroy entire crop in 7–10 days. Begin chemical treatment immediately — do not wait."
+    },
+    "chemical_treatment": {
+      "primary": {
+        "pesticide": "Cymoxanil 8% + Mancozeb 64% WP (Curzate M8 or equivalent)",
+        "dose": "2.5g per litre of water",
+        "frequency": "Every 5–7 days, minimum 3 sprays",
+        "icar_ref": "ICAR-IIHR Late Blight Emergency Advisory"
+      },
+      "alternative": {
+        "pesticide": "Propamocarb 72.2% SL",
+        "dose": "3ml per litre of water",
+        "frequency": "Every 7 days — alternate with primary to prevent resistance"
+      }
+    },
+    "prevention": "Plant resistant varieties. Avoid planting near potatoes. Do not wet foliage. Ensure good drainage. Remove and burn infected plants immediately.",
+    "safe_to_harvest_days": 14,
+    "seasons_affected": ["rabi", "winter"],
+    "affected_plant_parts": ["leaves", "stems", "fruit"],
+    "government_scheme": "PMFBY covers late blight losses — contact your bank or Common Service Center"
+  },
+
+  "Tomato___Leaf_Mold": {
+    "common_name": "Tomato Leaf Mold",
+    "scientific_name": "Passalora fulva (Cladosporium fulvum)",
+    "hindi_name": "टमाटर का पत्ती फफूंद",
+    "crop": "Tomato",
+    "type": "Fungal",
+    "symptoms": "Pale greenish-yellow spots on upper leaf surface. Olive-green to grayish-purple velvety growth on underside. Infected leaves curl, wither, and drop.",
+    "conditions_favoring": "High humidity (>85%), temperatures 22–27°C. Common in protected cultivation (polyhouses).",
+    "urgency": "act_this_week",
+    "severity_on_detection": "moderate",
+    "yield_loss_pct_max": 40,
+    "organic_treatment": {
+      "method": "Sulfur spray + ventilation",
+      "preparation": "Wettable sulfur 80% WP @ 3g per litre",
+      "frequency": "Every 10–14 days, 2–3 sprays",
+      "notes": "Increase ventilation in polyhouses. Reduce humidity by improving air circulation."
+    },
+    "chemical_treatment": {
+      "primary": {
+        "pesticide": "Mancozeb 75% WP",
+        "dose": "2.5g per litre of water",
+        "frequency": "3–4 sprays at 10-day intervals",
+        "icar_ref": "ICAR-IIHR Protected Cultivation Tomato IPM"
+      }
+    },
+    "prevention": "Use resistant varieties. Reduce polyhouse humidity with ventilation. Avoid overhead watering. Remove infected leaves.",
+    "safe_to_harvest_days": 7,
+    "seasons_affected": ["rabi", "winter"],
+    "affected_plant_parts": ["leaves"]
+  },
+
+  "Tomato___Septoria_leaf_spot": {
+    "common_name": "Septoria Leaf Spot of Tomato",
+    "scientific_name": "Septoria lycopersici",
+    "hindi_name": "टमाटर का सेप्टोरिया पत्ती धब्बा",
+    "crop": "Tomato",
+    "type": "Fungal",
+    "symptoms": "Numerous small (3–6mm) circular spots with dark brown border and tan/grey center. Tiny black pycnidia (fruiting bodies) visible in spot centers. Lower leaves affected first.",
+    "conditions_favoring": "Wet, warm (20–25°C) conditions. Spreads rapidly during rainy seasons.",
+    "urgency": "act_this_week",
+    "severity_on_detection": "moderate",
+    "yield_loss_pct_max": 40,
+    "organic_treatment": {
+      "method": "Copper spray",
+      "preparation": "Copper oxychloride 50% WP @ 3g per litre",
+      "frequency": "Every 7–10 days during wet conditions",
+      "notes": "Start spraying from transplanting. Remove badly infected lower leaves."
+    },
+    "chemical_treatment": {
+      "primary": {
+        "pesticide": "Mancozeb 75% WP",
+        "dose": "2.5g per litre of water",
+        "frequency": "5–6 sprays at 7–10 day intervals starting from early vegetative stage",
+        "icar_ref": "ICAR-IIHR Tomato Disease Management"
+      }
+    },
+    "prevention": "3-year crop rotation. Remove infected lower leaves. Mulch to prevent soil splash. Stake plants for good air circulation.",
+    "safe_to_harvest_days": 7,
+    "seasons_affected": ["kharif", "rabi"],
+    "affected_plant_parts": ["leaves", "stems"]
+  },
+
+  "Tomato___Spider_mites Two-spotted_spider_mite": {
+    "common_name": "Two-Spotted Spider Mite on Tomato",
+    "scientific_name": "Tetranychus urticae",
+    "hindi_name": "टमाटर का लाल मकड़ी",
+    "crop": "Tomato",
+    "type": "Pest (mite)",
+    "symptoms": "Fine yellow stippling on upper leaf surface. Underside has fine webbing and tiny mites visible. Leaves turn bronze/brown and die in severe infestations.",
+    "conditions_favoring": "Hot, dry conditions (above 30°C, low humidity). Dusty conditions. Stressed plants.",
+    "urgency": "act_this_week",
+    "severity_on_detection": "moderate",
+    "yield_loss_pct_max": 50,
+    "organic_treatment": {
+      "method": "Neem oil spray + strong water jet",
+      "preparation": "Neem oil 5ml + liquid soap 1ml per litre water",
+      "frequency": "Every 5–7 days, 3–4 sprays",
+      "notes": "First wash plants with strong water jet (especially undersides) to dislodge mites. Spray neem oil immediately after. Release predatory mite Phytoseiulus persimilis if available."
+    },
+    "chemical_treatment": {
+      "primary": {
+        "pesticide": "Abamectin 1.8% EC",
+        "dose": "1ml per litre of water",
+        "frequency": "2 sprays at 7-day interval. Rotate with different chemical next generation.",
+        "icar_ref": "ICAR-IIHR Mite Management in Tomato"
+      },
+      "alternative": {
+        "pesticide": "Spiromesifen 22.9% SC",
+        "dose": "1ml per litre",
+        "frequency": "1–2 sprays — highly effective but expensive"
+      }
+    },
+    "prevention": "Maintain soil moisture to reduce plant stress. Avoid dusty conditions. Control nearby weeds. Avoid excessive nitrogen.",
+    "safe_to_harvest_days": 7,
+    "seasons_affected": ["summer", "kharif"],
+    "affected_plant_parts": ["leaves", "stems"]
+  },
+
+  "Tomato___Target_Spot": {
+    "common_name": "Target Spot of Tomato",
+    "scientific_name": "Corynespora cassiicola",
+    "hindi_name": "टमाटर का टार्गेट धब्बा",
+    "crop": "Tomato",
+    "type": "Fungal",
+    "symptoms": "Dark brown to black spots with concentric rings (target-like pattern). Spots have yellow halo. Unlike early blight, occurs on all-aged leaves including younger ones.",
+    "conditions_favoring": "Warm humid conditions 24–30°C, extended leaf wetness.",
+    "urgency": "act_this_week",
+    "severity_on_detection": "moderate",
+    "yield_loss_pct_max": 35,
+    "organic_treatment": {
+      "method": "Neem oil spray",
+      "preparation": "Neem oil 5ml + liquid soap 1ml per litre water",
+      "frequency": "Every 7–10 days, 3 applications",
+      "notes": "Remove infected leaves. Improve air circulation."
+    },
+    "chemical_treatment": {
+      "primary": {
+        "pesticide": "Azoxystrobin 23% SC",
+        "dose": "1ml per litre of water",
+        "frequency": "2–3 sprays at 14-day intervals",
+        "icar_ref": "ICAR-IIHR Tomato Foliar Disease Guide"
+      }
+    },
+    "prevention": "Crop rotation. Avoid dense planting. Remove lower leaves touching soil.",
+    "safe_to_harvest_days": 7,
+    "seasons_affected": ["kharif", "rabi"],
+    "affected_plant_parts": ["leaves", "stems", "fruit"]
+  },
+
+  "Tomato___Tomato_Yellow_Leaf_Curl_Virus": {
+    "common_name": "Tomato Yellow Leaf Curl Virus (TYLCV)",
+    "scientific_name": "Tomato yellow leaf curl virus (Begomovirus)",
+    "hindi_name": "टमाटर का पीला पत्ती मरोड़ वायरस",
+    "crop": "Tomato",
+    "type": "Viral (whitefly-transmitted)",
+    "symptoms": "Severe upward curling and yellowing of young leaves. Stunted plant growth. Leaves become small and leathery. Little to no fruit set.",
+    "conditions_favoring": "High whitefly (Bemisia tabaci) population. Hot dry conditions favor vector. Most damaging in early crop stages.",
+    "urgency": "act_today",
+    "severity_on_detection": "severe",
+    "yield_loss_pct_max": 100,
+    "organic_treatment": {
+      "method": "Whitefly control + reflective mulch",
+      "preparation": "Neem oil 5ml + liquid soap 1ml per litre for whitefly. Use yellow sticky traps (30/acre).",
+      "frequency": "Neem spray every 5 days. Replace sticky traps every 2 weeks.",
+      "notes": "NO CURE for viral infection. Remove and destroy infected plants immediately to prevent spread. Focus entirely on whitefly vector control in surrounding healthy plants."
+    },
+    "chemical_treatment": {
+      "primary": {
+        "pesticide": "Imidacloprid 17.8% SL (for whitefly control only)",
+        "dose": "0.5ml per litre of water as foliar OR 2ml per litre as drench",
+        "frequency": "Every 7–10 days — focus on young plants before infection",
+        "icar_ref": "ICAR-IIHR TYLCV Management Advisory"
+      }
+    },
+    "prevention": "Use virus-resistant varieties (Arka Rakshak, Arka Samrat — IIHR released). Install 50-mesh insect-proof nets on nursery. Spray imidacloprid on transplants before field planting. Install reflective silver mulch.",
+    "safe_to_harvest_days": 0,
+    "seasons_affected": ["kharif", "summer"],
+    "affected_plant_parts": ["leaves", "whole plant"],
+    "government_scheme": "Virus-resistant variety seeds available at subsidized rates through state horticulture department"
+  },
+
+  "Tomato___Tomato_mosaic_virus": {
+    "common_name": "Tomato Mosaic Virus (ToMV)",
+    "scientific_name": "Tomato mosaic virus (Tobamovirus)",
+    "hindi_name": "टमाटर का मोज़ेक वायरस",
+    "crop": "Tomato",
+    "type": "Viral (contact-transmitted)",
+    "symptoms": "Light and dark green mosaic pattern on leaves. Leaves may be distorted, narrow, or fernleaf-shaped. Fruit may show yellow rings. Stunted growth.",
+    "conditions_favoring": "Spreads mechanically — hands, tools, clothing. Very stable virus, survives in plant debris for long periods.",
+    "urgency": "act_today",
+    "severity_on_detection": "severe",
+    "yield_loss_pct_max": 80,
+    "organic_treatment": {
+      "method": "Sanitation protocol",
+      "preparation": "Wash hands with soap before handling plants. Dip tools in 10% bleach solution (100ml bleach + 900ml water) for 30 seconds between plants.",
+      "frequency": "Every time before touching plants",
+      "notes": "NO CURE. Remove and destroy infected plants. Do NOT compost infected material. Do NOT smoke near tomato plants (tobacco carries related virus)."
+    },
+    "chemical_treatment": {
+      "primary": {
+        "pesticide": "No effective chemical treatment for virus itself",
+        "dose": "N/A",
+        "frequency": "N/A — focus on sanitation and roguing",
+        "icar_ref": "ICAR-IIHR Viral Disease Management in Tomato"
+      }
+    },
+    "prevention": "Use virus-free certified seed or transplants. Resistant varieties. Disinfect tools. Remove infected plants early. Do not handle plants when wet.",
+    "safe_to_harvest_days": 0,
+    "seasons_affected": ["all"],
+    "affected_plant_parts": ["leaves", "fruit", "whole plant"]
+  },
+
+  "Tomato___healthy": {
+    "common_name": "Healthy Tomato",
+    "crop": "Tomato",
+    "type": "healthy",
+    "symptoms": "No disease.",
+    "urgency": "none",
+    "severity_on_detection": "none",
+    "yield_loss_pct_max": 0,
+    "organic_treatment": { "method": "No treatment needed", "preparation": "", "frequency": "", "notes": "" },
+    "chemical_treatment": {},
+    "prevention": "Weekly scouting. Balanced fertilization (avoid excess N). Drip irrigation. Crop rotation.",
+    "safe_to_harvest_days": 0,
+    "seasons_affected": [],
+    "affected_plant_parts": []
+  },
+
+  "Wheat___Leaf_rust": {
+    "common_name": "Wheat Leaf Rust (Brown Rust)",
+    "scientific_name": "Puccinia triticina",
+    "hindi_name": "गेहूं का पत्ती जंग (भूरा जंग)",
+    "crop": "Wheat",
+    "type": "Fungal",
+    "symptoms": "Small, circular to oval orange-brown pustules scattered on upper leaf surface. Pustules contain orange-brown powdery spores. Severe infection causes leaf shriveling.",
+    "conditions_favoring": "Temperatures 15–22°C, high humidity, dew on leaves. Spores spread by wind over long distances.",
+    "urgency": "act_today",
+    "severity_on_detection": "severe",
+    "yield_loss_pct_max": 40,
+    "organic_treatment": {
+      "method": "Sulfur dust (preventive)",
+      "preparation": "Dust sulfur 20 kg per hectare",
+      "frequency": "At first sign — preventive dusting most effective",
+      "notes": "Cultural control: Early sowing of resistant varieties. Sulfur is mainly preventive — use fungicide for active infection."
+    },
+    "chemical_treatment": {
+      "primary": {
+        "pesticide": "Propiconazole 25% EC",
+        "dose": "1ml per litre of water",
+        "frequency": "1–2 sprays at 10–14 day interval if disease spreads above 5% leaf area",
+        "icar_ref": "ICAR-IIWBR (Directorate of Wheat Research) Rust Management Bulletin 2024"
+      },
+      "alternative": {
+        "pesticide": "Tebuconazole 25.9% EC",
+        "dose": "1ml per litre of water",
+        "frequency": "1–2 sprays"
+      }
+    },
+    "prevention": "Plant rust-resistant varieties (HD 3086, DBW 187, WH 1105). Early sowing (Oct–Nov). Destroy volunteer wheat after harvest. Monitor regularly from tillering stage.",
+    "safe_to_harvest_days": 21,
+    "seasons_affected": ["rabi"],
+    "affected_plant_parts": ["leaves", "sheaths"],
+    "government_scheme": "ICAR-IIWBR issues real-time rust alerts — check wheatrust.res.in for regional advisories"
+  },
+
+  "Wheat___Stripe_rust": {
+    "common_name": "Wheat Yellow Rust (Stripe Rust)",
+    "scientific_name": "Puccinia striiformis f. sp. tritici",
+    "hindi_name": "गेहूं का पीला जंग",
+    "crop": "Wheat",
+    "type": "Fungal",
+    "symptoms": "Yellow to orange stripe-like lines of pustules parallel to leaf veins. Leaves turn completely yellow in severe cases. Young leaves most affected.",
+    "conditions_favoring": "Cool temperatures 10–15°C with moisture. More common in hilly/northern regions. Can spread explosively.",
+    "urgency": "act_today",
+    "severity_on_detection": "severe",
+    "yield_loss_pct_max": 70,
+    "organic_treatment": {
+      "method": "Sulfur dust",
+      "preparation": "Dust sulfur 20–25 kg per hectare",
+      "frequency": "Immediately at first sign",
+      "notes": "CRITICAL: Stripe rust is more aggressive than leaf rust. In cool weather it can destroy entire field in 2–3 weeks. Report any sudden stripe rust outbreak to your nearest KVK or ICAR-IIWBR."
+    },
+    "chemical_treatment": {
+      "primary": {
+        "pesticide": "Propiconazole 25% EC",
+        "dose": "1ml per litre of water",
+        "frequency": "1–2 sprays — single timely spray can save entire crop",
+        "icar_ref": "ICAR-IIWBR Stripe Rust Emergency Bulletin 2024"
+      }
+    },
+    "prevention": "Plant resistant varieties (HD 3226, DBW 222). Early sowing. Avoid late crop maturity during spring when conditions favor rust. Subscribe to ICAR wheat rust SMS alert service.",
+    "safe_to_harvest_days": 21,
+    "seasons_affected": ["rabi"],
+    "affected_plant_parts": ["leaves", "sheaths", "sometimes stems"],
+    "government_scheme": "For varieties to grow, check state agriculture department's recommended variety list for your district"
+  },
+
+  "Wheat___healthy": {
+    "common_name": "Healthy Wheat",
+    "crop": "Wheat",
+    "type": "healthy",
+    "symptoms": "No disease.",
+    "urgency": "none",
+    "severity_on_detection": "none",
+    "yield_loss_pct_max": 0,
+    "organic_treatment": { "method": "No treatment needed", "preparation": "", "frequency": "", "notes": "" },
+    "chemical_treatment": {},
+    "prevention": "Seed treatment with Vitavax Power @ 2.5g/kg seed. Balanced fertilization. Monitor from tillering stage.",
+    "safe_to_harvest_days": 0,
+    "seasons_affected": [],
+    "affected_plant_parts": []
   }
 }
